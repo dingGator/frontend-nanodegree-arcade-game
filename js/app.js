@@ -6,8 +6,6 @@ var Enemy = function () {
     this.x = Math.floor((Math.random() * 500) + 0);
     var yRandom = Math.floor((Math.random() * 3) + 1);
     this.y = yRandom * (73);
-
-
     // The image/sprite for the enemies, this uses
     this.sprite = 'images/enemy-bug.png';
     };
@@ -39,49 +37,38 @@ Enemy.prototype.update = function(dt) {
         yRandom = Math.floor((Math.random() * 3) + 1);
         ben.y = yRandom * (73);
         };
-
-
 };
 
 // Draw the enemy on the screen
 Enemy.prototype.render = function() {
-
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-// All enemies objects are in an array called allEnemies
 
 // Draw the enemy on the screen
     var amy = new Enemy();
     var ben = new Enemy();
     var joe = new Enemy();
 
-
+// All enemies objects are in an array called allEnemies
     var allEnemies =[amy,ben,joe];
-
-
 
 var Gem = function () {
     // Variables applied to each of our instances go here,
     var gem;
 
-
     this.x = Math.floor((Math.random() * 500) + 0);
     var yRandom = Math.floor((Math.random() * 4) + 1);
     this.y = yRandom * (73);
-//    this.sprite = 'images/Gem Green.png';
+    //*** The image/sprite for the Gem
     this.sprite = 'images/Gem Blue.png';
-    //*** The image/sprite for the enemies
-
     };
 
-// Update the enemy's position, required method for game
+// Update the Gem's position
 // Parameter: dt, a time delta between ticks
 Gem.prototype.update = function(dt) {
     // Multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers. loc
-
 
     gemGreen.x = gemGreen.x + 5 * dt;
     if (gemGreen.x > 500 ) {
@@ -91,7 +78,7 @@ Gem.prototype.update = function(dt) {
         gemGreen.y = yRandom * (73);
         };
 
-    gemOrange.x = gemOrange.x + 5 * dt;
+    gemOrange.x = gemOrange.cx + 5 * dt;
     if (gemOrange.x > 500 ) {
         this.sprite = 'images/Gem Orange.png';
         gemOrange.x = 0;
@@ -108,9 +95,7 @@ Gem.prototype.update = function(dt) {
         };
 };
 
-
 Gem.prototype.render = function() {
-
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -120,7 +105,7 @@ var gemOrange = new Gem();
 
 var allGems =[gemBlue,gemGreen,gemOrange];
 
-// All enemies objects are in an array called allEnemies
+// All Gem objects are in an array called allGems
 // Player class requires an update(), render() and
 // a handleInput() method.
 
@@ -129,16 +114,18 @@ var Player = function() {
     this.x = 200;
     this.y = 380;
     var score = 0;
+
     //The image/sprite for our player, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-pink-girl.png';
 };
 
 // Place the player object in a variable called player
-
     var player = new Player();
     var totalScore = 0;
     var scoreBump = 0;
+    var oldMsg ="                              ";
+    var oldScore =0;
 
 Player.prototype.update = function() {
 
@@ -191,14 +178,24 @@ Player.prototype.update = function() {
     var gemOrangeYMax = gemOrange.y + 50;
 
 //*
+    var youWonMsg = "You Won.  ADD 5.";
+    var collisionMsg = "Collision. MINUS 1.";
+    var collectedGem = "Collected Gem.  ADD 2."
+
     //***********Win ******score *****************
     if ( player.y < 20) {
         scoreBump = 5;
-        ctx.strokeStyle ="#0000FF";
-        ctx.font ="20px Verdana";
-        totalScore = totalScore + scoreBump;
 
-        ctx.strokeText ("YOU won.  ADD 5.",50, 40);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font ="20px Verdana";
+        ctx.fillText (oldMsg, 50, 40);
+
+      totalScore = totalScore + scoreBump;
+
+        ctx.fillStyle ="#0000FF";
+        ctx.font ="20px Verdana";
+        ctx.fillText (youWonMsg,50, 40);
+        oldMsg = youWonMsg;
 
     //**********  Collision *****score *************
     } else if    (amyXPos < playerXMax
@@ -206,13 +203,17 @@ Player.prototype.update = function() {
             &&    amyYPos < playerYMax
             &&    amyYMax > playerYPos)
             {   scoreBump = -1;
-                ctx.strokeStyle ="#0000FF";
+
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collision.  MINUS 1.",50, 40);
-
-
+                ctx.fillStyle ="#FF0000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collisionMsg,50, 40);
+                oldMsg = collisionMsg;
 
     } else if    (benXPos < playerXMax
             &&    benXMax > playerXPos
@@ -220,23 +221,33 @@ Player.prototype.update = function() {
             &&    benYMax > playerYPos)
             {   scoreBump = -1;
 
-                ctx.strokeStyle ="#0000FF";
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collision.  MINUS 1.",50, 40);
+                ctx.fillStyle ="#FF0000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collisionMsg,50, 40);
+                oldMsg = collisionMsg;
 
     } else if    (joeXPos < playerXMax
             &&    joeXMax > playerXPos
             &&    joeYPos < playerYMax
             &&    joeYMax > playerYPos)
             {   scoreBump = -1;
-                ctx.strokeStyle ="#0000FF";
+
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collision.  MINUS 1.",50, 40);
-
+                ctx.fillStyle ="#FF0000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collisionMsg,50, 40);
+                oldMsg = collisionMsg;
 
 //    ************Gem Collected*** score**********
     } else if    (gemGreenXPos < playerXMax
@@ -244,11 +255,17 @@ Player.prototype.update = function() {
             &&    gemGreenYPos < playerYMax
             &&    gemGreenYMax > playerYPos)
             {   scoreBump = 2;
-                ctx.strokeStyle ="#ADFF2A";
+
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collected Gem.  ADD 2.",50, 40);
+                ctx.fillStyle ="#008000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collectedGem,50, 40);
+                oldMsg = collectedGem;
 
                 gemGreen.sprite = 'images/Gem Green.png';
                 gemGreen.x = 0;
@@ -260,12 +277,17 @@ Player.prototype.update = function() {
             &&    gemOrangeYPos < playerYMax
             &&    gemOrangeYMax > playerYPos)
             {   scoreBump = 2;
-                ctx.strokeStyle ="#ADFF2A";
+
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collected Gem.  ADD 2.",50, 40);
-
+                ctx.fillStyle ="#008000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collectedGem,50, 40);
+                oldMsg = collectedGem;
 
                 gemOrange.sprite = 'images/Gem Orange.png';
                 gemOrange.x = 0;
@@ -278,13 +300,17 @@ Player.prototype.update = function() {
             &&    gemBlueYPos < playerYMax
             &&    gemBlueYMax > playerYPos)
             {   scoreBump = 2;
-                ctx.strokeStyle ="#ADFF2A";
+
+                ctx.fillStyle = '#FFFFFF';
                 ctx.font ="20px Verdana";
+                ctx.fillText (oldMsg, 50, 40);
+
                 totalScore = totalScore + scoreBump;
 
-                ctx.strokeText ("Collected Gem.  ADD 2.",50, 40);
-
-
+                ctx.fillStyle ="#008000";
+                ctx.font ="20px Verdana";
+                ctx.fillText (collectedGem,50, 40);
+                oldMsg = collectedGem;
 
                 gemBlue.sprite = 'images/Gem Blue.png';
                 gemBlue.x = 0;
@@ -298,26 +324,26 @@ Player.prototype.update = function() {
 
 Player.prototype.render = function() {
     //**********keep score
-
+    var yourScore = "Your score is: ";
 
   //*********  Winning  *****score *************
-
-//  console.log("scorebump " + scoreBump)
-    if (scoreBump === 5) {
+        if (scoreBump === 5) {
 
         player.x = 200;
         player.y = 380;
         score = 0;
         scoreBump = 0;
-        ctx.strokeStyle ="#000000";
+
+        ctx.fillStyle = '#FFFFFF';
         ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + oldScore, 50, 600);
 
-        ctx.strokeText ("  Your score is: " + totalScore, 50, 600);
-
-
+        ctx.fillStyle ="#000000";
+        ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + totalScore, 50, 600);
+        oldScore = totalScore;
 
 //    *********  Collision *****score *************
-
     } else if (scoreBump === -1) {
 
         player.x = 200;
@@ -325,10 +351,14 @@ Player.prototype.render = function() {
         score = 0;
         scoreBump = 0;
 
-        ctx.strokeStyle ="#000000";
+        ctx.fillStyle = '#FFFFFF';
         ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + oldScore, 50, 600);
 
-        ctx.strokeText ("  Your score is: " + totalScore, 50, 600);
+        ctx.fillStyle ="#000000";
+        ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + totalScore, 50, 600);
+        oldScore = totalScore;
 
     } else if (scoreBump === 2 ) {
 
@@ -337,29 +367,32 @@ Player.prototype.render = function() {
         score = 0;
         scoreBump = 0;
 
-        ctx.strokeStyle ="#000000";
+        ctx.fillStyle = '#FFFFFF';
         ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + oldScore, 50, 600);
 
-        ctx.strokeText ("  Your score is: " + totalScore, 50, 600);
+        ctx.fillStyle ="#000000";
+        ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + totalScore, 50, 600);
+        oldScore = totalScore;
 
     } else {
-        ctx.strokeStyle ="#000000";
+
+        ctx.fillStyle = '#FFFFFF';
         ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + oldScore, 50, 600);
 
-
+        ctx.fillStyle ="#000000";
+        ctx.font ="20px Verdana";
+        ctx.fillText (yourScore + totalScore, 50, 600);
+        oldScore = totalScore;
 
         player.x = player.x;
         player.y = player.y;
     };
-//     console.log(" keysE ");
-
 
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
-//  console.log(" keysD ");
-
 };
-
 
 Player.prototype.handleInput = function(keys) {
 //********handle keys input
@@ -415,7 +448,6 @@ Player.prototype.handleInput = function(keys) {
      };
 
 };
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
