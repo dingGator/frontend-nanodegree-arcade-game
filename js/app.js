@@ -1,7 +1,6 @@
-// Enemies our player must avoid
 var Enemy = function () {
     // Variables applied to each of our instances go here,
-    var enemy;
+    //var enemy;
 
     this.x = Math.floor((Math.random() * 500) + 0);
     var yRandom = Math.floor((Math.random() * 3) + 1);
@@ -20,23 +19,23 @@ Enemy.prototype.update = function(dt) {
     amy.x = amy.x + 30 *dt ;
     if (amy.x > 500 ) {
         amy.x =  0;
-        yRandom = Math.floor((Math.random() * 3) + 1);
-        amy.y = yRandom * (73);
-        };
+        var amyYRandom = Math.floor((Math.random() * 3) + 1);
+        amy.y = amyYRandom * (73);
+        }
 
     joe.x = joe.x + 30 *dt ;
     if (joe.x > 500 ) {
         joe.x = 0;
-        yRandom = Math.floor((Math.random() * 3) + 1);
-        joe.y = yRandom * (73);
-        };
+        var joeYRandom = Math.floor((Math.random() * 3) + 1);
+        joe.y = joeYRandom * (73);
+        }
 
     ben.x = ben.x + 30 *dt ;
     if (ben.x > 500 ) {
         ben.x = 0;
-        yRandom = Math.floor((Math.random() * 3) + 1);
-        ben.y = yRandom * (73);
-        };
+        var benYRandom = Math.floor((Math.random() * 3) + 1);
+        ben.y = benYRandom * (73);
+        }
 };
 
 // Draw the enemy on the screen
@@ -54,7 +53,7 @@ Enemy.prototype.render = function() {
 
 var Gem = function () {
     // Variables applied to each of our instances go here,
-    var gem;
+    //var gem;
 
     this.x = Math.floor((Math.random() * 500) + 0);
     var yRandom = Math.floor((Math.random() * 4) + 1);
@@ -74,25 +73,25 @@ Gem.prototype.update = function(dt) {
     if (gemGreen.x > 500 ) {
         this.sprite = 'images/Gem Green.png';
         gemGreen.x =  0;
-        yRandom = Math.floor((Math.random() * 4) + 1);
-        gemGreen.y = yRandom * (73);
-        };
+        var greenYRandom = Math.floor((Math.random() * 4) + 1);
+        gemGreen.y = greenYRandom * (73);
+        }
 
     gemOrange.x = gemOrange.cx + 5 * dt;
     if (gemOrange.x > 500 ) {
         this.sprite = 'images/Gem Orange.png';
         gemOrange.x = 0;
-        yRandom = Math.floor((Math.random() * 4) + 1);
-        gemOrange.y = yRandom * (73);
-        };
+        var orangeYRandom = Math.floor((Math.random() * 4) + 1);
+        gemOrange.y = orangeYRandom * (73);
+        }
 
     gemBlue.x = gemBlue.x + 5 * dt;
     if (gemBlue.x > 500 ) {
         this.sprite = 'images/Gem Blue.png';
         gemBlue.x = 0;
-        yRandom = Math.floor((Math.random() * 4) + 1);
-        gemBlue.y = yRandom * (73);
-        };
+        var blueYRandom = Math.floor((Math.random() * 4) + 1);
+        gemBlue.y = blueYRandom * (73);
+        }
 };
 
 Gem.prototype.render = function() {
@@ -113,7 +112,6 @@ var Player = function() {
 
     this.x = 200;
     this.y = 380;
-    var score = 0;
 
     //The image/sprite for our player, this uses
     // a helper we've provided to easily load images
@@ -126,6 +124,8 @@ var Player = function() {
     var scoreBump = 0;
     var oldMsg ="                              ";
     var oldScore =0;
+        var score = 0;
+
 
 Player.prototype.update = function() {
 
@@ -180,7 +180,7 @@ Player.prototype.update = function() {
 //*
     var youWonMsg = "You Won.  ADD 5.";
     var collisionMsg = "Collision. MINUS 1.";
-    var collectedGem = "Collected Gem.  ADD 2."
+    var collectedGem = "Collected Gem.  ADD 2.";
 
     //***********Win ******score *****************
     if ( player.y < 20) {
@@ -198,10 +198,10 @@ Player.prototype.update = function() {
         oldMsg = youWonMsg;
 
     //**********  Collision *****score *************
-    } else if    (amyXPos < playerXMax
-            &&    amyXMax > playerXPos
-            &&    amyYPos < playerYMax
-            &&    amyYMax > playerYPos)
+    } else if    (amyXPos < playerXMax  &&
+                  amyXMax > playerXPos  &&
+                  amyYPos < playerYMax  &&
+                  amyYMax > playerYPos)
             {   scoreBump = -1;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -215,10 +215,10 @@ Player.prototype.update = function() {
                 ctx.fillText (collisionMsg,50, 40);
                 oldMsg = collisionMsg;
 
-    } else if    (benXPos < playerXMax
-            &&    benXMax > playerXPos
-            &&    benYPos < playerYMax
-            &&    benYMax > playerYPos)
+    } else if    (benXPos < playerXMax  &&
+                  benXMax > playerXPos  &&
+                  benYPos < playerYMax  &&
+                  benYMax > playerYPos)
             {   scoreBump = -1;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -232,10 +232,10 @@ Player.prototype.update = function() {
                 ctx.fillText (collisionMsg,50, 40);
                 oldMsg = collisionMsg;
 
-    } else if    (joeXPos < playerXMax
-            &&    joeXMax > playerXPos
-            &&    joeYPos < playerYMax
-            &&    joeYMax > playerYPos)
+    } else if    (joeXPos < playerXMax  &&
+                  joeXMax > playerXPos  &&
+                  joeYPos < playerYMax  &&
+                  joeYMax > playerYPos)
             {   scoreBump = -1;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -250,10 +250,10 @@ Player.prototype.update = function() {
                 oldMsg = collisionMsg;
 
 //    ************Gem Collected*** score**********
-    } else if    (gemGreenXPos < playerXMax
-            &&    gemGreenXMax > playerXPos
-            &&    gemGreenYPos < playerYMax
-            &&    gemGreenYMax > playerYPos)
+    } else if    (gemGreenXPos < playerXMax  &&
+                  gemGreenXMax > playerXPos  &&
+                  gemGreenYPos < playerYMax  &&
+                  gemGreenYMax > playerYPos)
             {   scoreBump = 2;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -269,13 +269,13 @@ Player.prototype.update = function() {
 
                 gemGreen.sprite = 'images/Gem Green.png';
                 gemGreen.x = 0;
-                yRandom = Math.floor((Math.random() * 4) + 1);
-                gemGreen.y = yRandom * (73);
+                var greenYRandom = Math.floor((Math.random() * 4) + 1);
+                gemGreen.y = greenYRandom * (73);
 
-    } else if    (gemOrangeXPos < playerXMax
-            &&    gemOrangeXMax > playerXPos
-            &&    gemOrangeYPos < playerYMax
-            &&    gemOrangeYMax > playerYPos)
+    } else if    (gemOrangeXPos < playerXMax  &&
+                  gemOrangeXMax > playerXPos  &&
+                  gemOrangeYPos < playerYMax  &&
+                  gemOrangeYMax > playerYPos)
             {   scoreBump = 2;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -291,14 +291,14 @@ Player.prototype.update = function() {
 
                 gemOrange.sprite = 'images/Gem Orange.png';
                 gemOrange.x = 0;
-                yRandom = Math.floor((Math.random() * 4) + 1);
-                gemOrange.y = yRandom * (73);
+                var orangeYRandom = Math.floor((Math.random() * 4) + 1);
+                gemOrange.y = orangeYRandom * (73);
 
 
-    } else if    (gemBlueXPos < playerXMax
-            &&    gemBlueXMax > playerXPos
-            &&    gemBlueYPos < playerYMax
-            &&    gemBlueYMax > playerYPos)
+    } else if    (gemBlueXPos < playerXMax  &&
+                  gemBlueXMax > playerXPos  &&
+                  gemBlueYPos < playerYMax  &&
+                  gemBlueYMax > playerYPos)
             {   scoreBump = 2;
 
                 ctx.fillStyle = '#FFFFFF';
@@ -314,12 +314,12 @@ Player.prototype.update = function() {
 
                 gemBlue.sprite = 'images/Gem Blue.png';
                 gemBlue.x = 0;
-                yRandom = Math.floor((Math.random() * 4) + 1);
-                gemBlue.y = yRandom * (73);
+                var blueYRandom = Math.floor((Math.random() * 4) + 1);
+                gemBlue.y = blueYRandom * (73);
 
     } else {player.y = playerYPos;
             player.x = playerXPos;
-            };
+            }
 };
 
 Player.prototype.render = function() {
@@ -389,7 +389,7 @@ Player.prototype.render = function() {
 
         player.x = player.x;
         player.y = player.y;
-    };
+    }
 
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -442,10 +442,10 @@ Player.prototype.handleInput = function(keys) {
             if (player.y < 380) {
                 player.y = player.y + 83;
             break;
-            };
-         };
+            }
+         }
 
-     };
+     }
 
 };
 // This listens for key presses and sends the keys to your
@@ -461,7 +461,6 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 }
 );
-
 
 
 
