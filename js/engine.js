@@ -99,7 +99,7 @@ var Engine = (function(global) {
         allGems.forEach(function(gem){
             gem.update(dt);
         }
-        )
+        );
         player.update();
     }
 
