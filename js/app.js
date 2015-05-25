@@ -123,7 +123,7 @@ Player.prototype.update = function () {
 	// *
     // check for enemy collision
     var enemyIdx, gemIdx;
-    
+
 	for (enemyIdx = 0; enemyIdx < 3; enemyIdx++) {
 		// ***********Win ******score ****in water*************
 		if (player.y < 30) {
@@ -192,7 +192,6 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.handleInput = function(keys) {
-    "use strict";
 	// ********handle keys input
 	// *The player will be moved by:
 	// 1. Using the keys:
@@ -258,13 +257,3 @@ document.addEventListener('keyup', function(e) {
 	};
 	player.handleInput(allowedKeys[e.keyCode]);
 });
-
-
-
-
-
-
-
-
-
-
